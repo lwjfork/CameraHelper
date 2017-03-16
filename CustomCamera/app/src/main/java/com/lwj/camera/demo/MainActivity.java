@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mCameraView = (MyCameraView) findViewById(R.id.camera);
+        mCameraView.setAutoFocus(true);
         mCameraView.setOnCameraOperationListener(new ICameraOperation.CameraCallback() {
             @Override
             public void onOpen() {
