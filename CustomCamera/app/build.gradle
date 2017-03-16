@@ -1,15 +1,16 @@
 apply plugin: 'com.android.application'
-
+def supportLibraryVersion = rootProject.ext.supportLibVersion
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.1"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
+    buildToolsVersion rootProject.ext.buildToolsVersion
     defaultConfig {
         applicationId "com.camera.camera.demo"
-        minSdkVersion 17
-        targetSdkVersion 25
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -22,5 +23,6 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:25.1.0'
+    compile "com.android.support:design:$supportLibraryVersion"
     compile project(':CameraHelper')
 }
