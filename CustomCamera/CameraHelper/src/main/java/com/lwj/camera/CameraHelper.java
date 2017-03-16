@@ -96,17 +96,25 @@ public abstract class CameraHelper implements ICameraOperation {
 
     @Override
     public int getMaxZoom() {
+        if (isSupportZoom()) {
+            return mCameraParameters.getMaxZoom();
+        }
         return 0;
     }
 
     @Override
     public boolean isSupportZoom() {
-        return false;
+
+        return mCameraParameters == null && mCameraParameters.isZoomSupported();
     }
 
     @Override
     public void setZoom(int zoomValue) {
-
+        if (isSupportZoom()) {
+            mCameraParameters.setZoom(zoomValue);
+        } else {
+            Log.w("CameraHelper", "The camera isn't support zoom");
+        }
     }
 
 
