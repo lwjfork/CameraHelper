@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements
                     @Override
                     public void run() {
                         // This demo app saves the taken picture to a constant file.
-                        // $ adb pull /sdcard/Android/data/com.google.android.cameraview.demo/files/Pictures/picture.jpg
+                        // $ adb pull /sdcard/Android/data/com.lwj.camera.demo/files/Pictures/picture.jpg
                         File file = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES),
                                 "picture.jpg");
                         OutputStream os = null;

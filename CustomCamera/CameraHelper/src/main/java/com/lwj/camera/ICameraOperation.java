@@ -65,6 +65,7 @@ public interface ICameraOperation {
 
     String getFlash();
 
+    boolean isSupportFlash(String flash);
     /**
      * 设置方向
      *

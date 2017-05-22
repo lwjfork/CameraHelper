@@ -8,6 +8,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,6 +40,13 @@ public abstract class CameraHelper implements ICameraOperation {
     public SurfaceHolder mSurfaceholder;
     public DisplayOrientationListener displayOrientationListener;
     public Context context;
+
+    // 支持的 flash 模式
+    public ArrayList<String> flash = new ArrayList<>();
+
+    public int maxZoom;
+
+
 
     public CameraHelper(Context context, SurfaceView surfaceView) {
         this.context = context;
@@ -101,6 +109,9 @@ public abstract class CameraHelper implements ICameraOperation {
         }
         return 0;
     }
+
+
+
 
     @Override
     public boolean isSupportZoom() {
@@ -299,12 +310,15 @@ public abstract class CameraHelper implements ICameraOperation {
         }
         if (getAutoFocus()) {
             mCamera.cancelAutoFocus();
-            mCamera.autoFocus(new Camera.AutoFocusCallback() {
-                @Override
-                public void onAutoFocus(boolean success, Camera camera) {
-                    takePictureInternal();
-                }
-            });
+            takePictureInternal();
+//            mCamera.autoFocus(new Camera.AutoFocusCallback() {
+//                @Override
+//                public void onAutoFocus(boolean success, Camera camera) {
+//                    if(success){
+////
+//                    }
+//                }
+//            });
         } else {
             takePictureInternal();
         }
@@ -317,6 +331,7 @@ public abstract class CameraHelper implements ICameraOperation {
                 if (callback != null) {
                     callback.onPictureTaken(data);
                 }
+                mCamera.cancelAutoFocus();
                 camera.startPreview();
             }
         });
@@ -442,5 +457,14 @@ public abstract class CameraHelper implements ICameraOperation {
     @Override
     public void onCameraDetached() {
         displayOrientationListener.onDetachedFromWindow();
+    }
+
+    @Override
+    public boolean isSupportFlash(String flash) {
+        if (mCameraParameters == null) {
+            return false;
+        }
+        List<String> modes = mCameraParameters.getSupportedFlashModes();
+        return modes != null && modes.contains(flash);
     }
 }

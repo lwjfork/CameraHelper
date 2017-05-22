@@ -139,4 +139,9 @@ public class MyCameraView extends SurfaceView implements ICameraOperation {
     public void onCameraDetached() {
         cameraHelper.onCameraDetached();
     }
+
+    @Override
+    public boolean isSupportFlash(String flash) {
+        return cameraHelper.isSupportFlash(flash);
+    }
 }
